@@ -1,14 +1,23 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { assets } from "../assets/assets";
 import {motion} from 'framer-motion'
 import { AppContext } from "../context/AppContext";
+import { useNavigate } from "react-router-dom";
 
 const Result = () => {
   const [image,setImage] = useState(assets.sample_img_1)
   const [isImageLoaded,setImageLoaded] = useState(false)
   const [loading,setLoading] = useState(false)
   const [input,setinput] = useState('')
+  let token = localStorage.getItem('token')
 
+  const navigate = useNavigate()
+
+  useEffect(()=>{
+    if(!token){
+      navigate('/')
+    }
+  },[])
 
   const {generateImage} = useContext(AppContext)
 
